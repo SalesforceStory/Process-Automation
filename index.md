@@ -1,37 +1,86 @@
-## Welcome to GitHub Pages
+## Figure Out Which Tool To Use 
 
-You can use the [editor on GitHub](https://github.com/SalesforceStory/Process-Automation/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Salesforce provides multiple tools to automate your org’s repetitive business processes: Lightning Process Builder, Visual Workflow, Workflow, and Approvals. The automation tool that you need depends on the type of business process that you’re automating.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+What to do when a record has certain values
+Example: Notify the account owner when a related case is escalated.
 
-### Markdown
+Collecting information from users or customers and then doing something with that information
+Example: Customer support uses a wizard to step through a call script, and cases are created based on the information that they enter.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+How a record gets approved
+Example: Managers approve their direct reports’ requests for vacation.
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+### What to Do When a Record Has Certain Values
 
-- Bulleted
-- List
+Three of our tools can address this use case: Workflow, Process Builder, and Visual Workflow. Respectively, these tools create workflow rules, processes, and flows.
 
-1. Numbered
-2. List
+We recommend starting with Process Builder, especially for business processes that can be simplified to if/then statements. For example: if a case is escalated, then notify the account owner.
 
-**Bold** and _Italic_ and `Code` text
+Process Builder includes almost all the functionality that’s available in workflow rules, and more. In fact, a single process can do what it would normally take multiple workflow rules to do. The only thing you can do with workflow that you can’t do with processes is send outbound messages without code. However, you can work around this limitation by calling Apex code from a process.
 
-[Link](url) and ![Image](src)
-```
+If the process is too complicated for the Process Builder or requires more advanced functionality, create a flow by using Visual Workflow. For example, create a flow to:
+Use complex branching logic (if certain conditions are true, evaluate for further conditions)
+Example: First, check whether a case is escalated. If the case is escalated, check the account’s region and route the case accordingly.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Sort through, iterate over, and operate on several records
+Example: After an opportunity is closed and won, calculate the opportunity’s discount. Then apply that discount to all the related opportunity products.
 
-### Jekyll Themes
+### Get Information from Users or Customers and Do Something with It
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SalesforceStory/Process-Automation/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+If you need to build a wizard to collect information, Visual Workflow is the tool for you. Create a flow that displays information to and requests information from a user. Then take the information that they enter and perform actions in Salesforce with it.
 
-### Support or Contact
+For example, create a flow that walks customer support representatives through a call script. The flow uses information that the representative entered, such as the caller’s name and account number, to create a case that’s assigned to the right person.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+You can add more complexity to the flow to match your business process. For example:
+Route the representative to different screens, depending on earlier choices. This prevents the representative from doing things like trying to upsell a product to a customer who already bought that product.
+Check whether the reported problem is blocking the customer’s business and the account is high-value. If so, the flow notifies the region director.
+
+### How a Record Gets Approved
+For example, when an employee requests time off, that time has to be approved by the employee’s manager. You need to ensure that when a time-off request is submitted for approval, the right person (the employee’s manager) receives the request.
+
+To automate your organization’s processes for approving records, create approval processes.
+
+
+Automation Tool Features
+Here’s a breakdown of all the features and actions that are supported in each automation tool. Use it to determine which tool is best for your business needs.
+
+Process Builder	Visual Workflow	Workflow	Approvals
+Complexity	Multiple if/then statements	Complex	A single if/then statement	A single if/then statement
+Visual designer	check icon indicating true	check icon indicating true		
+Browser support	All (Chrome recommended)	All (Safari not recommended)	All	All
+Starts when	
+Record is changed
+Invoked by another process
+User clicks button or link
+User accesses custom tab
+Process starts
+Apex is called
+Record is changed	
+User clicks button or link
+Process or flow starts that includes a Submit for Approval action
+Apex is called
+Supports time-based actions	
+check icon indicating true
+check icon indicating true	check icon indicating true	
+Supports user interaction		check icon indicating true		
+Supported Actions
+Call Apex code	check icon indicating true	check icon indicating true		
+Create records	check icon indicating true	check icon indicating true	Tasks only	Tasks only
+Invoke processes	check icon indicating true			
+Delete records		check icon indicating true		
+Launch a flow	check icon indicating true	check icon indicating true	
+check icon indicating true
+(Pilot)1	
+Post to Chatter	check icon indicating true	check icon indicating true		
+Send email	
+check icon indicating true
+(Email alerts only)	check icon indicating true	
+check icon indicating true
+(Email alerts only)	
+check icon indicating true
+(Email alerts only)
+Send outbound messages without code			check icon indicating true	check icon indicating true
+Submit for approval	check icon indicating true	check icon indicating true		
+Update fields	Any related record	Any record	The record or its parent	The record or its parent
